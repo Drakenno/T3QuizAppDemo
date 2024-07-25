@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      checks: ["none"],
+      // checks: ["none"],
     }),
     Discord({
       clientId: env.DISCORD_CLIENT_ID,
@@ -33,17 +33,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   // secret: env.AUTH_SECRET,
-  // cookies: {
-  //   pkceCodeVerifier: {
-  //     name: "next-auth.pkce.code_verifier",
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: "none",
-  //       path: "/",
-  //       secure: true,
-  //     },
-  //   },
-  // },
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
   callbacks: {
     async jwt({ token }) {
       if (!token.sub) return token;
